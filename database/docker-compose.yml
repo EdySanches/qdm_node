@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  database:
+    container_name: qdm_db
+    image: postgres:15.7
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1931a38f-62b6-49f4-8d07-5d020a9eb104
+      POSTGRES_PORT: 5432
+    volumes:
+      - /pg_data:/var/lib/postgresql/data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    restart: always
+    logging:
+      driver: "json-file"
+      options: 
+        max-size: "20m"
+        max-file: "5"
+
