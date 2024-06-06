@@ -65,7 +65,7 @@ CREATE TABLE Comments (
 --------------------------------------------------------------------------------
 INSERT INTO Users (user_name, user_email, user_type, last_login, user_passw)
 VALUES 
-('John Doe', 'john.doe@example.com', 1, '2024-04-28 14:30:00', 'password123'),
+('admin', 'admin@admin.com', 0, '2024-04-28 14:30:00', 'p@ss321312'),
 ('Jane Smith', 'jane.smith@example.com', 2, '2024-04-29 10:00:00', 'password123'),
 ('Alice Jones', 'alice.jones@example.com', 1, '2024-04-29 11:15:00', 'password123'),
 ('Bob Brown', 'bob.brown@example.com', 2, '2024-04-30 09:45:00', 'password123');
