@@ -8,13 +8,11 @@ usersRouter.post('/login', usersController.login)
 
 usersRouter.post('/createUser', authByUserType(0), usersController.createUser)
 
-// usersRouter.get('/readUsers',autorizarPorTipoUsuario(0),usuario_controller.readUsers)
+usersRouter.get('/readUsers', authByUserType(0), usersController.readUser)
 
-// usersRouter.get('/readUser',autorizarPorTipoUsuario(0),usuario_controller.readUser)
+usersRouter.put('/updateUser', authByUserType(0), usersController.updateUser)
 
-// usersRouter.put('/updateUser',autorizarPorTipoUsuario(0),usuario_controller.updateUser)
-
-// usersRouter.delete('/deleteUser',autorizarPorTipoUsuario(0),usuario_controller.deleteUser)
+usersRouter.delete('/deleteUser', authByUserType(0), usersController.deleteUser)
 
 export default usersRouter
 

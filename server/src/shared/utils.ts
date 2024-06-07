@@ -11,6 +11,13 @@ export function removeSubstring(str: string, sub: string): string {
     }
   
     return str 
-  } 
+} 
   
-  
+/**
+ * Shared between services to check response on controllers
+ */
+export interface serviceResponse {
+  sucess: boolean
+  message?: string
+  data?: any
+}

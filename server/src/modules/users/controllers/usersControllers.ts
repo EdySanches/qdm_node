@@ -57,6 +57,24 @@ export default new class userControllers {
         }
     } 
 
+    public async readUser(req :Request, res: Response){
+        
+        try{
+            /* check fields */
+            req.body.user.last_login = new Date()
+            const userFMT = plainToInstance(userDTO, req.body.user)
+            await validateOrReject(userFMT)
+
+            /* call service */
+            const user = new usersServices().createtUser(userFMT)
+
+            /* return reponse */
+            res.status(201).json(user)
+        } catch (err) {
+            console.log(new Date(), "createUser -- err:", err)
+            res.status(422).send('Parameters error!');
+        }
+    } 
 
 }
 
