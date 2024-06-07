@@ -6,17 +6,26 @@ const prisma = new PrismaClient();
 
 export default class usersServices {
 
-    public async createtUser(user: userDTO): Promise<users> {
-        return prisma.users.create({
-            data: user,
-        });
+    public async createUser(user: userDTO): Promise<serviceResponse> {
+        return {
+            sucess: true,
+            data: prisma.users.create({
+                data: user
+            })
+        }
     }
     
-    public async readUser(user_name?: string): Promise<users[]> {
+    public async readUsers(user_name?: string): Promise<serviceResponse> {
         if (user_name)
-            return prisma.users.findMany({ where: { user_name: user_name } })
+            return {
+                sucess: true,
+                data: prisma.users.findMany({ where: { user_name: user_name } })
+            }
         else
-            return prisma.users.findMany()
+            return {
+                sucess: true,
+                data: prisma.users.findMany()
+            }
     }
 
     public async updateUser(id: number, user: userDTO): Promise<serviceResponse> {

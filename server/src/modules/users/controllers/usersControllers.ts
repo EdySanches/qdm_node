@@ -47,7 +47,7 @@ export default new class userControllers {
             await validateOrReject(userFMT)
 
             /* call service */
-            const user = new usersServices().createtUser(userFMT)
+            const user = new usersServices().createUser(userFMT)
 
             /* return reponse */
             res.status(201).json(user)
@@ -57,19 +57,60 @@ export default new class userControllers {
         }
     } 
 
-    public async readUser(req :Request, res: Response){
+    public async readUsers(req :Request, res: Response){
         
         try{
             /* check fields */
-            req.body.user.last_login = new Date()
+            const user_name = req.body.user?.user_name || '' 
+
+            /* call service */
+            const user = new usersServices().readUsers(user_name)
+
+            /* return reponse */
+            res.status(201).json(user)
+        } catch (err) {
+            console.log(new Date(), "createUser -- err:", err)
+            res.status(422).send('Parameters error!');
+        }
+    } 
+
+    public async updateUser(req :Request, res: Response){
+        
+        try{
+            /* check fields */
+            req.body.user.last_login = new Date() // TODO plain how to fix
             const userFMT = plainToInstance(userDTO, req.body.user)
             await validateOrReject(userFMT)
 
             /* call service */
-            const user = new usersServices().createtUser(userFMT)
+            const user = await new usersServices().updateUser(req.body.user.id, userFMT)
 
             /* return reponse */
-            res.status(201).json(user)
+            if (user.sucess)
+                res.status(202).json(user)
+            else 
+                res.status(400).json(user)
+
+        } catch (err) {
+            console.log(new Date(), "createUser -- err:", err)
+            res.status(422).send('Parameters error!');
+        }
+    } 
+
+    public async deleteUser(req :Request, res: Response){
+        
+        try{
+            /* check fields */
+
+            /* call service */
+            const user = await new usersServices().deleteUser(req.body.user?.id)
+            
+            /* return reponse */
+            if (user.sucess)
+                res.status(202).json(user)
+            else 
+                res.status(400).json(user)
+            
         } catch (err) {
             console.log(new Date(), "createUser -- err:", err)
             res.status(422).send('Parameters error!');

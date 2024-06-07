@@ -8,7 +8,7 @@ usersRouter.post('/login', usersController.login)
 
 usersRouter.post('/createUser', authByUserType(0), usersController.createUser)
 
-usersRouter.get('/readUsers', authByUserType(0), usersController.readUser)
+usersRouter.get('/readUsers', authByUserType(0), usersController.readUsers)
 
 usersRouter.put('/updateUser', authByUserType(0), usersController.updateUser)
 
