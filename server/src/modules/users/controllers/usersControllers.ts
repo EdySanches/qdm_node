@@ -9,20 +9,9 @@ export default new class userControllers {
 
     public async login(req: Request, res: Response, _:NextFunction){
 
-        console.log(`userController/login -- corpo `, req.body)
-
         try{
-            console.log("a")
-            /* check inputs */
-            if (!req.body.user_email || !req.body.user_passw){
-                res.status(422).send('Missing email and/or password.')
-                return
-            }
-            console.log("b")
-
             /* token part */
             const token = await new authUserService().execute(req.body.user_email, req.body.user_passw)
-            console.log("c")
             
             if(token) {
                 res.status(200).json({token:token})
@@ -47,10 +36,10 @@ export default new class userControllers {
             await validateOrReject(userFMT)
 
             /* call service */
-            const user = new usersServices().createUser(userFMT)
+            const result = await new usersServices().createUser(userFMT)
 
             /* return reponse */
-            res.status(201).json(user)
+            res.status(201).json(result)
         } catch (err) {
             console.log(new Date(), "createUser -- err:", err)
             res.status(422).send('Parameters error!');
@@ -64,10 +53,11 @@ export default new class userControllers {
             const user_name = req.body.user?.user_name || '' 
 
             /* call service */
-            const user = new usersServices().readUsers(user_name)
+            const result = await new usersServices().readUsers(user_name)
+            console.log(new Date(), "readUsers -- result", result)
 
             /* return reponse */
-            res.status(201).json(user)
+            res.status(201).json(result)
         } catch (err) {
             console.log(new Date(), "createUser -- err:", err)
             res.status(422).send('Parameters error!');
@@ -79,6 +69,7 @@ export default new class userControllers {
         try{
             /* check fields */
             req.body.user.last_login = new Date() // TODO plain how to fix
+            req.body.user.updated_at = new Date()
             const userFMT = plainToInstance(userDTO, req.body.user)
             await validateOrReject(userFMT)
 
@@ -100,11 +91,9 @@ export default new class userControllers {
     public async deleteUser(req :Request, res: Response){
         
         try{
-            /* check fields */
-
             /* call service */
-            const user = await new usersServices().deleteUser(req.body.user?.id)
-            
+            const user = await new usersServices().deleteUser(req.body.user.id)
+            console.log(new Date(), "deleteUser")
             /* return reponse */
             if (user.sucess)
                 res.status(202).json(user)

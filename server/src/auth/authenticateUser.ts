@@ -1,7 +1,6 @@
 import { sign } from 'jsonwebtoken'
 import { PrismaClient, users } from '@prisma/client'
 import { jwtConfig } from './jwt'
-import { userDTO } from '../modules/users/dtos/userDTO'
 
 class authUserService {
 
@@ -42,8 +41,6 @@ class authUserService {
             subject: userDB.user_email,
             expiresIn,
         });
-
-        console.log(`authUserService/execute -- usuário: ${userDB.user_email} - token emitido: ${token}`);
 
         /* update user lastLogin */
         const success = await prisma.users.update({

@@ -9,7 +9,7 @@ export default class usersServices {
     public async createUser(user: userDTO): Promise<serviceResponse> {
         return {
             sucess: true,
-            data: prisma.users.create({
+            data: await prisma.users.create({
                 data: user
             })
         }
@@ -19,12 +19,14 @@ export default class usersServices {
         if (user_name)
             return {
                 sucess: true,
-                data: prisma.users.findMany({ where: { user_name: user_name } })
+                data: await prisma.users.findMany({ 
+                    where: { user_name: user_name }, 
+                    orderBy: { id: "asc" } })
             }
         else
             return {
                 sucess: true,
-                data: prisma.users.findMany()
+                data: await prisma.users.findMany({ orderBy: { id: "asc" } })
             }
     }
 
@@ -39,7 +41,7 @@ export default class usersServices {
 
         return {
             sucess: true,
-            data: prisma.users.update({
+            data: await prisma.users.update({
                 where: { id: id },
                 data: user
             })
@@ -58,7 +60,7 @@ export default class usersServices {
 
         return {
             sucess: true,
-            data: prisma.users.delete({
+            data: await prisma.users.delete({
                 where: { id: id },
             })
         }
