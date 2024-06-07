@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+    server:
+        container_name: qdm_server
+        image: node:21-alpine
+        env_file:
+            - ./env

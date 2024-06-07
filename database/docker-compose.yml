@@ -6,7 +6,7 @@ services:
     image: postgres:15.7
     environment:
       POSTGRES_HOST: localhost
-      POSTGRES_USER: admin
+      POSTGRES_USER: admin_qdmedia
       POSTGRES_DB: qdmedia_db
       POSTGRES_PASSWORD: 1931a38f-62b6-49f4-8d07-5d020a9eb104
       POSTGRES_PORT: 5432

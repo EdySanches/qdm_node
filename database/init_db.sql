@@ -19,7 +19,8 @@ $do$;
 --------------------------------------------------------------------------------
 -- DATABASE
 --------------------------------------------------------------------------------
-CREATE DATABASE qdmedia_db;
+SELECT 'CREATE DATABASE qdmedia_db'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'qdmedia_db')\gexec
 GRANT ALL PRIVILEGES ON DATABASE qdmedia_db TO admin_qdmedia;
 \c qdmedia_db
 

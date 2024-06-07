@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  id                  Int       @id @default(autoincrement())
+  user_id             Int?
+  post_id             Int?
+  comment_description String?   @db.VarChar(1000)
+  comment_status      String?   @db.VarChar(50)
+  created_at          DateTime? @default(now()) @db.Timestamp(6)
+  updated_at          DateTime? @db.Timestamp(6)
+  posts               posts?    @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users               users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model posts {
+  id               Int        @id @default(autoincrement())
+  user_id          Int?
+  title            String?    @db.VarChar(255)
+  post_description String?    @db.VarChar(1000)
+  views            Int?
+  likes            Int?
+  dislikes         Int?
+  image_url        String?    @db.VarChar(500)
+  created_at       DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?  @db.Timestamp(6)
+  comments         comments[]
+  users            users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id         Int        @id @default(autoincrement())
+  user_name  String     @unique @db.VarChar(100)
+  user_email String     @unique @db.VarChar(100)
+  user_type  Int?
+  last_login DateTime   @db.Timestamp(6)
+  user_passw String     @db.VarChar(100)
+  created_at DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at DateTime?  @db.Timestamp(6)
+  comments   comments[]
+  posts      posts[]
+}

@@ -1,12 +1,12 @@
 import { Router } from "express";
-import usuario_controller from "../controllers/usersController"
-import autorizarPorTipoUsuario from "../../../auth/autorizar_requisicao";
+import authByUserType from "../../../auth/authorizeReq";
+import usersController from "../controllers/usersControllers";
 
 const usersRouter = Router()
 
-usersRouter.post('/login', usuario_controller.login)
+usersRouter.post('/login', usersController.login)
 
-// usersRouter.post('/insertUser',autorizarPorTipoUsuario(0),usuario_controller.inserir_usuario)
+usersRouter.post('/createUser', authByUserType(0), usersController.createUser)
 
 // usersRouter.get('/readUsers',autorizarPorTipoUsuario(0),usuario_controller.readUsers)
 
