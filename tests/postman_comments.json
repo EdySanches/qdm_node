@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "701a7a7c-48e2-4350-bcf3-63e666d8f6b6",
+		"name": "Comments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138090"
+	},
+	"item": [
+		{
+			"name": "readByID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/readCommentById",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"readCommentById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"user_id\": 3,\r\n        \"post_id\": 9,\r\n        \"post_owner_id\": 1,\r\n        \"comment_description\": \"belo texto meu amigo!!\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/createComment",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"createComment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"id\": 6,\r\n        \"user_id\": 1,\r\n        \"title\": \"update post\",\r\n        \"post_description\": \"blablablablalb\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/updatePost",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"updatePost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readByUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"user_id\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/readCommentsByUser",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"readCommentsByUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readByPost",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"post_id\": 9\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/readCommentsByPost",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"readCommentsByPost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByPO",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"id\": 2,\r\n        \"post_owner_id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/deleteCommentByPO",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"deleteCommentByPO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"id\": 7,\r\n        \"user_id\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/comments/deleteCommentByUser",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"comments",
+						"deleteCommentByUser"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

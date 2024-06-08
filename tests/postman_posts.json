@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "62aaa10f-8833-4901-ab8a-97cfa705f219",
+		"name": "Posts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21138090"
+	},
+	"item": [
+		{
+			"name": "readByID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/readPostById",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"readPostById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"user_id\": 1,\r\n        \"title\": \"vigesimo s post\",\r\n        \"post_description\": \"blablablablalb\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/createPost",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"createPost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"id\": 6,\r\n        \"user_id\": 1,\r\n        \"title\": \"update post\",\r\n        \"post_description\": \"blablablablalb\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/updatePost",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"updatePost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readByUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"user_id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/readPostsByUser",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"readPostsByUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post\": {\r\n        \"id\": 5,\r\n        \"user_id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/posts/deletePost",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"posts",
+						"deletePost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
