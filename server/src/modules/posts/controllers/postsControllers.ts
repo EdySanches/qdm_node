@@ -1,42 +1,21 @@
-import { Request, Response , NextFunction, request} from "express";
+import { Request, Response , NextFunction } from "express";
 import authUserService from "../../../auth/authenticateUser"
 import { plainToInstance } from "class-transformer";
-import { userDTO } from "../dtos/userDTO";
 import { validateOrReject } from "class-validator";
-import usersServices from "../services/usersServices";
+import usersServices from "../services/postsServices";
+import { postDTO } from "../dtos/postDTO";
 
-export default new class userControllers {
+export default new class postsControllers {
 
-    public async login(req: Request, res: Response, _:NextFunction){
-
-        try{
-            /* token part */
-            const token = await new authUserService().execute(req.body.user_email, req.body.user_passw)
-            
-            if(token) {
-                res.status(200).json({token:token})
-            }
-            else {
-                res.status(401).send('Incorrect email/password combination.')
-            }
-        }  catch(err){
-            res.status(422).send('Parameters error!');
-        }
-
-        return
-
-    } 
-
-    public async createUser(req :Request, res: Response){
+    public async createPost(req :Request, res: Response){
         
         try{
             /* check fields */
-            req.body.user.last_login = new Date()
-            const userFMT = plainToInstance(userDTO, req.body.user)
-            await validateOrReject(userFMT)
+            const postFmt = plainToInstance(postDTO, req.body.user)
+            await validateOrReject(postFmt)
 
             /* call service */
-            const result = await new usersServices().createUser(userFMT)
+            const result = await new usersServices().createPost(postFmt)
 
             /* return reponse */
             res.status(201).json(result)
@@ -64,17 +43,17 @@ export default new class userControllers {
         }
     } 
 
-    public async updateUser(req :Request, res: Response){
+    public async updatePost(req :Request, res: Response){
         
         try{
             /* check fields */
             req.body.user.last_login = new Date() // TODO plain how to fix
             req.body.user.updated_at = new Date()
-            const userFMT = plainToInstance(userDTO, req.body.user)
-            await validateOrReject(userFMT)
+            const postFmt = plainToInstance(postDTO, req.body.user)
+            await validateOrReject(postFmt)
 
             /* call service */
-            const user = await new usersServices().updateUser(req.body.user.id, userFMT)
+            const user = await new usersServices().updatePost(req.body.user.id, postFmt)
 
             /* return reponse */
             if (user.sucess)
@@ -88,11 +67,11 @@ export default new class userControllers {
         }
     } 
 
-    public async deleteUser(req :Request, res: Response){
+    public async deletePost(req :Request, res: Response){
         
         try{
             /* call service */
-            const user = await new usersServices().deleteUser(req.body.user.id)
+            const user = await new usersServices().deletePost(req.body.user.id)
             console.log(new Date(), "deleteUser")
             /* return reponse */
             if (user.sucess)
