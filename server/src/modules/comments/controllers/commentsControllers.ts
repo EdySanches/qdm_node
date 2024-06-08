@@ -1,5 +1,4 @@
 import { Request, Response , NextFunction } from "express";
-import authUserService from "../../../auth/authenticateUser"
 import { plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
 import usersServices from "../services/commentsServices";
