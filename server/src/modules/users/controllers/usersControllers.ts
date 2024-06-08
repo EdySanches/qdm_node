@@ -57,7 +57,7 @@ export default new class userControllers {
             const result = await new usersServices().readUsers(user_name)
 
             /* return reponse */
-            res.status(201).json(result)
+            res.status(200).json(result)
         } catch (err) {
             console.log(new Date(), "readUsers -- err:", err)
             res.status(422).send('Parameters error!');

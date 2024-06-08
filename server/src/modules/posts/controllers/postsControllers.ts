@@ -41,7 +41,7 @@ export default new class postsControllers {
             const result = await new usersServices().readPostById(req.body.post.id)
 
             /* return reponse */
-            res.status(201).json(result)
+            res.status(200).json(result)
         } catch (err) {
             console.log(new Date(), "readPostById -- err:", err)
             res.status(422).send('Parameters error!');
@@ -60,7 +60,7 @@ export default new class postsControllers {
             const result = await new usersServices().readPostsByUser(req.body.post.user_id)
 
             /* return reponse */
-            res.status(201).json(result)
+            res.status(200).json(result)
         } catch (err) {
             console.log(new Date(), "readPostsByUser -- err:", err)
             res.status(422).send('Parameters error!');
