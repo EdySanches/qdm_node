@@ -1,46 +1,34 @@
-import { IsEmail, IsInt, IsOptional, IsString, Length, IsDate } from 'class-validator';
+import { IsEmail, IsInt, IsOptional, IsString, Length, IsDate, MaxLength, Min } from 'class-validator';
 
 export class postDTO {
     @IsOptional()
     @IsInt()
-    id?: number;  
-
-    @IsInt()
     user_id?: number;
-
-    @IsOptional()
+  
     @IsString()
-    @Length(1, 255)
-    title?: string;
-
-    @IsOptional()
+    @MaxLength(100)
+    title: string;
+  
     @IsString()
-    @Length(1, 1000)
-    post_description?: string;
-
+    post_description: string;
+  
     @IsOptional()
     @IsInt()
+    @Min(0)
     views?: number;
-
+  
     @IsOptional()
     @IsInt()
+    @Min(0)
     likes?: number;
-
+  
     @IsOptional()
     @IsInt()
+    @Min(0)
     dislikes?: number;
-
+  
     @IsOptional()
-    @IsString()
-    @Length(1, 500)
+    @MaxLength(500)
     image_url?: string;
-
-    @IsOptional()
-    @IsDate()
-    created_at?: Date;
-
-    @IsOptional()
-    @IsDate()
-    updated_at?: Date;
-
+  
 }
