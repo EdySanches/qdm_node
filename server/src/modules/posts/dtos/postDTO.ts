@@ -1,6 +1,7 @@
-import { IsEmail, IsInt, IsOptional, IsString, Length, IsDate, MaxLength, Min } from 'class-validator';
+import { IsInt, IsOptional, IsString, MaxLength, Min } from 'class-validator';
 
 export class postDTO {
+
     @IsOptional()
     @IsInt()
     user_id?: number;

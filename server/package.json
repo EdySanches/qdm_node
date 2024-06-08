@@ -4,8 +4,7 @@
   "description": "Server project to the social media app QDMedia",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/shared/index.ts",
-    "dev": "npx nodemon --inspect-brk -r ts-node/register ./src/shared/index.ts"
+    "start": "ts-node src/shared/index.ts"
   },
   "repository": {
     "type": "git",

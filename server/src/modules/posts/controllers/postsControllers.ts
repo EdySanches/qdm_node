@@ -11,7 +11,10 @@ export default new class postsControllers {
         
         try{
             /* check fields */
-            const postFmt = plainToInstance(postDTO, req.body.user)
+            req.body.post.views = 0
+            req.body.post.likes = 0
+            req.body.post.dislikes = 0
+            const postFmt = plainToInstance(postDTO, req.body.post)
             await validateOrReject(postFmt)
 
             /* call service */
@@ -20,25 +23,46 @@ export default new class postsControllers {
             /* return reponse */
             res.status(201).json(result)
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "createPost -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 
 
-    public async readUsers(req :Request, res: Response){
+    public async readPostById(req :Request, res: Response){
         
         try{
             /* check fields */
-            const user_name = req.body.user?.user_name || '' 
+            if (!req.body.post.id){
+                res.status(422).send('Missing post.id parameter!');
+                return
+            }
 
             /* call service */
-            const result = await new usersServices().readUsers(user_name)
-            console.log(new Date(), "readUsers -- result", result)
+            const result = await new usersServices().readPostById(req.body.post.id)
 
             /* return reponse */
             res.status(201).json(result)
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "readPostById -- err:", err)
+            res.status(422).send('Parameters error!');
+        }
+    } 
+
+    public async readPostsByUser(req :Request, res: Response){
+        try{            
+            /* check fields */ 
+            if (!req.body.post.user_id){
+                res.status(422).send('Missing post.user_id parameter!');
+                return
+            }
+
+            /* call service */
+            const result = await new usersServices().readPostsByUser(req.body.post.user_id)
+
+            /* return reponse */
+            res.status(201).json(result)
+        } catch (err) {
+            console.log(new Date(), "readPostsByUser -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 
@@ -47,40 +71,43 @@ export default new class postsControllers {
         
         try{
             /* check fields */
-            req.body.user.last_login = new Date() // TODO plain how to fix
-            req.body.user.updated_at = new Date()
-            const postFmt = plainToInstance(postDTO, req.body.user)
+            const postFmt = plainToInstance(postDTO, req.body.post)
             await validateOrReject(postFmt)
 
             /* call service */
-            const user = await new usersServices().updatePost(req.body.user.id, postFmt)
+            const result = await new usersServices().updatePost(req.body.post.id, postFmt)
 
             /* return reponse */
-            if (user.sucess)
-                res.status(202).json(user)
+            if (result.sucess)
+                res.status(202).json(result)
             else 
-                res.status(400).json(user)
+                res.status(400).json(result)
 
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "updatePost -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 
 
     public async deletePost(req :Request, res: Response){
-        
         try{
+            /* check fields */
+            if (!req.body.post?.id || !req.body.post?.user_id){
+                res.status(422).send('Missing post.id or post.user_id parameters!');
+                return
+            }
+            
             /* call service */
-            const user = await new usersServices().deletePost(req.body.user.id)
-            console.log(new Date(), "deleteUser")
+            const result = await new usersServices().deletePost(req.body.post.id, req.body.post.user_id)
+
             /* return reponse */
-            if (user.sucess)
-                res.status(202).json(user)
+            if (result.sucess)
+                res.status(202).json(result)
             else 
-                res.status(400).json(user)
+                res.status(400).json(result)
             
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "deletePost -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 

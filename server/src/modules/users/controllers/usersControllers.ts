@@ -19,7 +19,8 @@ export default new class userControllers {
             else {
                 res.status(401).send('Incorrect email/password combination.')
             }
-        }  catch(err){
+        }  catch(err) {
+            console.log(new Date(), "login -- err:", err)
             res.status(422).send('Parameters error!');
         }
 
@@ -54,12 +55,11 @@ export default new class userControllers {
 
             /* call service */
             const result = await new usersServices().readUsers(user_name)
-            console.log(new Date(), "readUsers -- result", result)
 
             /* return reponse */
             res.status(201).json(result)
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "readUsers -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 
@@ -83,7 +83,7 @@ export default new class userControllers {
                 res.status(400).json(user)
 
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "updateUser -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 
@@ -93,7 +93,6 @@ export default new class userControllers {
         try{
             /* call service */
             const user = await new usersServices().deleteUser(req.body.user.id)
-            console.log(new Date(), "deleteUser")
             /* return reponse */
             if (user.sucess)
                 res.status(202).json(user)
@@ -101,7 +100,7 @@ export default new class userControllers {
                 res.status(400).json(user)
             
         } catch (err) {
-            console.log(new Date(), "createUser -- err:", err)
+            console.log(new Date(), "deleteUser -- err:", err)
             res.status(422).send('Parameters error!');
         }
     } 

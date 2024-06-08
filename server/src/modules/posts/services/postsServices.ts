@@ -1,4 +1,4 @@
-import { PrismaClient, users } from "@prisma/client";
+import { PrismaClient, posts, users } from "@prisma/client";
 import { serviceResponse } from "../../../shared/utils";
 import { postDTO } from "../dtos/postDTO";
 
@@ -19,7 +19,7 @@ export default class postsServices {
         const posts = await prisma.posts.findMany({ 
             where: { user_id: user_id }, 
             orderBy: { id: "asc" } })
-        if (!posts)
+        if (!posts.length)
             return {
                 sucess: false,
                 message: "Posts not found!"
@@ -56,37 +56,38 @@ export default class postsServices {
         }
     }
 
-    public async updatePost(post: postDTO): Promise<serviceResponse> {
-        const pSearch = await prisma.posts.findUnique({ where: { id: post.id } })
-        if (!pSearch || pSearch.owner_id !== post.owner_id) 
+    public async updatePost(post_id: number, post: postDTO): Promise<serviceResponse> {
+        const pSearch = await prisma.posts.findUnique({ where: { id: post_id } })
+        if (!pSearch || pSearch.user_id !== post.user_id) 
             return {
                 sucess: false,
                 message: "User unauthorized to update!"
             }
-        else
+        else {
             return {
                 sucess: true,
-                data: await prisma.users.update({
-                    where: { id: post.id },
+                data: await prisma.posts.update({
+                    where: { id: post_id },
                     data: post
                 })
             }
+        }
     }
 
-    public async deletePost(id: number): Promise<serviceResponse> {
+    public async deletePost(post_id: number, user_id: number): Promise<serviceResponse> {
 
-        const pSearch = prisma.posts.findUnique({ where: { id } })
-        if (!pSearch || pSearch.owner_id !== post.owner_id) {
+        const pSearch = await prisma.posts.findUnique({ where: { id: post_id } })
+        if (!pSearch || pSearch.user_id !== user_id) {
             return {
                 sucess: false,
-                message: "Post not found!"
+                message: "User unauthorized to delete!"
             }
         }
 
         return {
             sucess: true,
             data: await prisma.posts.delete({
-                where: { id: id },
+                where: { id: post_id },
             })
         }
     }

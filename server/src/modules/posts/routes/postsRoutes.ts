@@ -1,18 +1,18 @@
 import { Router } from "express";
 import authByUserType from "../../../auth/authorizeReq";
-import usersController from "../controllers/postsControllers";
+import postsControllers from "../controllers/postsControllers";
 
-const usersRouter = Router()
+const postsRouter = Router()
 
-usersRouter.post('/login', usersController.login)
+postsRouter.post('/createPost', authByUserType(1), postsControllers.createPost)
 
-usersRouter.post('/createUser', authByUserType(0), usersController.createUser)
+postsRouter.get('/readPostById', authByUserType(1), postsControllers.readPostById)
 
-usersRouter.get('/readUsers', authByUserType(0), usersController.readUsers)
+postsRouter.get('/readPostsByUser', authByUserType(1), postsControllers.readPostsByUser)
 
-usersRouter.put('/updateUser', authByUserType(0), usersController.updateUser)
+postsRouter.put('/updatePost', authByUserType(1), postsControllers.updatePost)
 
-usersRouter.delete('/deleteUser', authByUserType(0), usersController.deleteUser)
+postsRouter.delete('/deletePost', authByUserType(1), postsControllers.deletePost)
 
-export default usersRouter
+export default postsRouter
 
