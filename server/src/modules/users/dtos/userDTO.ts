@@ -9,9 +9,8 @@ export class userDTO {
   @Length(1, 100)
   user_email: string;
 
-  @IsOptional()
   @IsInt()
-  user_type?: number;
+  user_type: number;
 
   @IsDate()
   last_login: Date;
